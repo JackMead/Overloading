@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Overloading
 {
-    public class Duck
+    public class Duck : IComparable<Duck>
     {
         public string Name { get; }
         public string Type { get; }
@@ -58,10 +58,19 @@ namespace Overloading
             return Name + " is a " + Type + " duck, is " + AgeInMonths + " months old and weighs " + WeightInGrams + " grams.";
         }
 
+        public int CompareTo(Duck x)
+        {
+            if (ReferenceEquals(x, null)) return 1;
+            return AgeInMonths.CompareTo(x.AgeInMonths);
+        }
+
         public static bool operator >(Duck left, Duck right)
         {
-            var comparer = new WeightRelationalComparer();
-            if (comparer.Compare(left, right) > 0)
+            if (ReferenceEquals(left, null))
+            {
+                return false;
+            }
+            if (left.CompareTo(right) > 0)
             {
                 return true;
             }
@@ -70,8 +79,11 @@ namespace Overloading
 
         public static bool operator <(Duck left, Duck right)
         {
-            var comparer = new WeightRelationalComparer();
-            if (comparer.Compare(left, right) < 0)
+            if (ReferenceEquals(left, null))
+            {
+                return true;
+            }
+            if (left.CompareTo(right) < 0)
             {
                 return true;
             }

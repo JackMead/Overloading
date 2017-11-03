@@ -32,6 +32,25 @@ namespace Overloading
             //Test Comparer
             var weightComparer = new WeightRelationalComparer();
             Console.WriteLine("{0} weighs more than {1}? {2}", quack.Name, quacker.Name, quack > quacker);
+
+            var listOfDucks = new List<Duck>
+            {
+                quack,
+                quacker,
+                new Duck("Donald","Cartoon",10000000,2)
+            };
+
+            listOfDucks.Sort(weightComparer);
+            foreach (var duck in listOfDucks)
+            {
+                Console.WriteLine("{0} weighs {1}",duck.Name,duck.WeightInGrams);
+            }
+
+            listOfDucks.Sort();
+            foreach (var duck in listOfDucks)
+            {
+                Console.WriteLine("{0} is {1} months old", duck.Name, duck.AgeInMonths);
+            }
         }
     }
 }
