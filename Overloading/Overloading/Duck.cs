@@ -89,6 +89,17 @@ namespace Overloading
             }
             return false;
         }
+
+
+        public static bool operator <=(Duck left, Duck right)
+        {
+            return Equals(left, right) || left < right;
+        }
+
+        public static bool operator >=(Duck left, Duck right)
+        {
+            return Equals(left, right) || left > right;
+        }
     }
 
 }
